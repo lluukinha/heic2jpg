@@ -13,7 +13,7 @@
         <button
           class="btn btn-primary mx-2"
           @click="runConverter()"
-          :disabled="isLoadingAny || !hasImages"
+          :disabled="canConvertAll"
         >
           Convert All
         </button>
@@ -56,7 +56,7 @@
     </div>
 
     <div class="row mt-5" v-else>
-      <div class="col">
+      <div class="col table-images">
         <table class="table table-striped table-hover">
           <tbody>
             <tr v-for="image in filesArray" :key="image.key">
@@ -124,8 +124,16 @@ export default {
       return this.filesArray.some((image) => image.isLoading);
     },
 
+    canConvertAll() {
+      return this.isLoadingAny || !this.hasImages || !this.hasImagesToConvert;
+    },
+
     hasImages() {
       return this.filesArray.length > 0;
+    },
+
+    hasImagesToConvert() {
+      return this.filesArray.some((image) => !image.newBlob);
     },
 
     hasImagesToDownload() {
@@ -267,7 +275,7 @@ export default {
 <style scoped>
 .drop-area {
   margin-top: 50px;
-  height: 200px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -302,5 +310,10 @@ export default {
 .error-msg {
   color: red;
   text-shadow: 1px 1px 1px #fff333;
+}
+
+.table-images {
+  max-height: 500px;
+  overflow-y: auto;
 }
 </style>
