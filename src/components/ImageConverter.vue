@@ -11,7 +11,7 @@
           v-show="false"
         />
         <button
-          class="btn btn-primary mx-2"
+          class="btn btn-primary"
           @click="runConverter()"
           :disabled="canConvertAll"
         >
@@ -19,16 +19,25 @@
         </button>
 
         <button
-          class="btn btn-primary ml-1"
+          class="btn btn-primary mx-2"
           @click="runDownload()"
-          :disabled="isLoadingAny || !hasImagesToDownload || isDownloading"
+          :disabled="canDownloadAll"
         >
           Download All
+        </button>
+
+        <button
+          class="btn btn-primary"
+          :class="{ disabled: !canClearAll }"
+          @click="clearFiles"
+          :disabled="!canClearAll"
+        >
+          Clear All
         </button>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3" v-if="filesArray.length === 0">
       <label for="file-input" :class="{ bolder: isDragging }">
         <div
           id="drop-area"
@@ -45,21 +54,29 @@
       </label>
     </div>
 
-    <div class="row mt-3">
-      <p class="error-msg" v-if="hasErrors">
+    <div class="row mt-3" v-if="hasErrors">
+      <p class="error-msg">
         * There is {{ errors.length }} files that is not .heic format
       </p>
     </div>
 
-    <div class="row main-content bg-white" v-if="!hasImages">
+    <div class="row main-content bg-light p-5 mt-3" v-if="!hasImages">
       <div class="col text-center">No images found</div>
     </div>
 
-    <div class="row mt-5" v-else>
+    <div class="row mt-3" v-else>
       <div class="col table-images">
         <table class="table table-striped table-hover">
           <tbody>
-            <tr v-for="image in filesArray" :key="image.key">
+            <tr v-for="(image, index) in filesArray" :key="image.key">
+              <td>
+                <button
+                  class="btn btn-danger btn-sm"
+                  @click="removeImageFromIndex(index)"
+                >
+                  X
+                </button>
+              </td>
               <td>{{ image.name }}</td>
               <td>
                 <img v-if="image.url" class="thumb" :src="image.url" />
@@ -124,6 +141,14 @@ export default {
       return this.filesArray.some((image) => image.isLoading);
     },
 
+    canClearAll() {
+      return this.filesArray.length > 0 && !this.isLoadingAny;
+    },
+
+    canDownloadAll() {
+      return this.isLoadingAny || !this.hasImagesToDownload || this.isDownloading;
+    },
+
     canConvertAll() {
       return this.isLoadingAny || !this.hasImages || !this.hasImagesToConvert;
     },
@@ -151,16 +176,21 @@ export default {
   },
 
   methods: {
-    dropHandler(event) {
-      this.isDragging = false;
+    removeImageFromIndex(index) {
+      this.filesArray.splice(index, 1);
+    },
+
+    clearFiles() {
       this.filesArray = [];
       this.errors = [];
+    },
+
+    dropHandler(event) {
+      this.isDragging = false;
       this.bringFilesToArray(event.dataTransfer.files);
     },
 
     previewFiles(event) {
-      this.filesArray = [];
-      this.errors = [];
       this.bringFilesToArray(event.target.files);
     },
 
@@ -274,7 +304,7 @@ export default {
 
 <style scoped>
 .drop-area {
-  margin-top: 50px;
+  margin-top: 20px;
   height: 150px;
   display: flex;
   justify-content: center;
@@ -298,10 +328,6 @@ export default {
   background-color: #FFF;
 }
 
-.main-content {
-  margin-top: 50px;
-}
-
 .thumb {
   max-width: 30px;
   height: auto;
@@ -313,7 +339,11 @@ export default {
 }
 
 .table-images {
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: auto;
+}
+
+td {
+  vertical-align: middle;
 }
 </style>
