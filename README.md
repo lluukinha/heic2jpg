@@ -1,6 +1,6 @@
 # Welcome to heic2jpg!
 
-[About me](https://www.lucasd.com.br" target="_blank) | [Demo](https://lluukinha.github.io/heic2jpg/dist/" target="_blank) | [Download Windows Version](https://github.com/lluukinha/heic2jpg/releases/download/v0.1/heic2jpg.Setup.0.1.0.exe)
+[About me](https://www.lucasd.com.br "(target|_blank)") | [Demo](https://lluukinha.github.io/heic2jpg/dist/ "(target|_blank)") | [Download Windows Version](https://github.com/lluukinha/heic2jpg/releases/download/v0.1/heic2jpg.Setup.0.1.0.exe)
 
 Hi! Recently i was needing to convert some images from my iPhone saved as .heic and my computer was not able to read them.  
 So i needed to convert them to .jpg or any other possible format.  
