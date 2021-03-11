@@ -2,8 +2,8 @@
 
 [About me](https://www.lucasd.com.br) | [Demo](https://lluukinha.github.io/heic2jpg/dist/) | [Download Windows Version](https://github.com/lluukinha/heic2jpg/releases/download/v0.1/heic2jpg.Setup.0.1.0.exe)
 
-Hi! Recently i was needing to convert some images from my iPhone saved as .heic and my computed was not reading them.
-So i needed to convert them to jpg or any other format.
+Hi! Recently i was needing to convert some images from my iPhone saved as .heic and my computer was not able to read them.  
+So i needed to convert them to .jpg or any other possible format.  
 For my surprise, i found just a few websites/softwares which does this work, but most of them is paid, so I decided to create this repository/application.
 
 # Testing the code
