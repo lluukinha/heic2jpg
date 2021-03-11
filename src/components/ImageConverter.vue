@@ -121,7 +121,6 @@ export default {
 
   data() {
     return {
-      files: null,
       filesArray: [],
       isDragging: false,
       isDownloading: false,

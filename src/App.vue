@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <ImageConverter />
+    <Footer />
   </div>
 </template>
 
 <script>
 import ImageConverter from './components/ImageConverter.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
   components: {
-    ImageConverter
+    ImageConverter,
+    Footer,
   }
 }
 </script>
